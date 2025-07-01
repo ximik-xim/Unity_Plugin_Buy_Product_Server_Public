@@ -35,7 +35,7 @@ public class SinglProductUI : MonoBehaviour
         
         if (_patchStorageMoney.Init == false)
         {
-            _patchStorageMoney.OnInit += OnInitStorageMoney;
+            _patchStorageMoney.OnInit += OnInitPatchStorageMoney;
         }
 
         if (_storagePriceProductIdSO.IsInit == false)
@@ -60,9 +60,9 @@ public class SinglProductUI : MonoBehaviour
         CheckInit();
     }
     
-    private void OnInitStorageMoney()
+    private void OnInitPatchStorageMoney()
     {
-        _patchStorageMoney.OnInit -= OnInitStorageMoney;
+        _patchStorageMoney.OnInit -= OnInitPatchStorageMoney;
         
         CheckInit();
     }
@@ -85,10 +85,28 @@ public class SinglProductUI : MonoBehaviour
         {
             var DKOData = (DKODataInfoT<StorageMoney>)_patchStorageMoney.GetDKO();
             _storageMoney = DKOData.Data;
-            
-            Init();
+
+            if (_storageMoney.IsInit == false)
+            {
+                _storageMoney.OnInit += OnInitStorageMoney;
+                return;
+            }
+
+            InitStorageMoney();
         }
     }
+
+    private void OnInitStorageMoney()
+    {
+        _storageMoney.OnInit -= OnInitStorageMoney;
+        InitStorageMoney();
+    }
+    
+    private void InitStorageMoney()
+    {
+        Init();
+    }
+
 
     private void Init()
     {

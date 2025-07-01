@@ -45,6 +45,23 @@ public class IsSelectKeyProductIdLogic : MonoBehaviour
           var DKOData = (DKODataInfoT<StorageOneSelectProductId>)_patchStorageOneSelectProductId.GetDKO();
           _oneSelectProduct = DKOData.Data;
 
+          if (_oneSelectProduct.IsInit == false)
+          {
+             _oneSelectProduct.OnInit += OnInitSelectProduct;
+             return;
+          }
+
+          InitSelectProduct();
+       }
+
+       private void OnInitSelectProduct()
+       {
+          _oneSelectProduct.OnInit -= OnInitSelectProduct;
+          InitSelectProduct();
+       }
+       
+       private void InitSelectProduct()
+       {
           if (_oneSelectProduct.IsThereData(_keyStorageSelectProductId.GetData()) == false)
           {
              _oneSelectProduct.OnUpdateData += OnAddCheck;
@@ -53,7 +70,6 @@ public class IsSelectKeyProductIdLogic : MonoBehaviour
           {
              AddCheck();
           }
-          
        }
 
        private void OnAddCheck()

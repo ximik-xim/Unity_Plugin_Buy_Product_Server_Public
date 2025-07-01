@@ -27,6 +27,7 @@ public class StoragePriceProductIdSO  : ScriptableObject, IInitScripObj
             _isInit = true;
             OnInit?.Invoke();
         }
+        
     }
     
     public float GetPriceProduct(KeyProductId key)
@@ -34,6 +35,10 @@ public class StoragePriceProductIdSO  : ScriptableObject, IInitScripObj
         return _dictionaryData[key.GetKey()];
     }
     
+    public bool IsThereKey(KeyProductId key)
+    {
+        return _dictionaryData.ContainsKey(key.GetKey());
+    }
     
     public void InitScripObj()
     {
@@ -49,6 +54,11 @@ public class StoragePriceProductIdSO  : ScriptableObject, IInitScripObj
             {
                 Awake();
             }
+        }
+        else
+        {
+            //Нужен, что бы сбросить переменную при запуске проекта(т.к при выходе(закрытии) из проекта, переменная не факт что будет сброшена)
+            _isInit = false;
         }
 #endif
     }

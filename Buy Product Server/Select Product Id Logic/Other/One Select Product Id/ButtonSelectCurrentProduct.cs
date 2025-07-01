@@ -17,6 +17,12 @@ public class ButtonSelectCurrentProduct : MonoBehaviour
    [SerializeField] 
    private Button _button;
 
+   /// <summary>
+   /// Создавать ли автоматически Хранилеще с выбр. ключами(если его нет)
+   /// </summary>
+   [SerializeField] 
+   private bool _autoCrateStorageSelect = false;
+   
    private void Awake()
    {
       if (_patchStorageOneSelectProductId.Init == false)
@@ -44,6 +50,15 @@ public class ButtonSelectCurrentProduct : MonoBehaviour
 
    private void ButtonClick()
    {
+      if (_autoCrateStorageSelect == true)
+      {
+         if (_oneSelectProduct.IsThereData(_keyStorageSelectProductId.GetData()) == false)
+         {
+            _oneSelectProduct.AddSelectKeyProduct(_keyStorageSelectProductId.GetData(), new StorageOneSelectProductIdData(_absGetProductKey.GetProductId()));
+            return;
+         }
+      }
+      
       _oneSelectProduct.GetSelectKeyProduct(_keyStorageSelectProductId.GetData()).SetKey(_absGetProductKey.GetProductId());
    }
 

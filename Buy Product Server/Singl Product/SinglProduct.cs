@@ -67,6 +67,11 @@ public class SinglProduct : MonoBehaviour
    /// Сработает в случае error или в случае если обработка всех покупок завершина
    /// </summary>
    public event Action OnComlited;
+
+   /// <summary>
+   /// Нужна что бы не запустить еще раз момент иниц.(дело в том, что до момента пока сраб. осн. Init, может пройти слишком много времяни, и кто то может еще раз вызывать иниц.)
+   /// </summary>
+   private bool _startInit = false;
    
    ////////////////////////////////////////////// Инициализация ///////////////////////////////////////////////////////////////////
 #if UNITY_EDITOR
@@ -91,7 +96,7 @@ public class SinglProduct : MonoBehaviour
       
       if (_patchDKOCheckProductHaveBuy.Init == false)
       {
-         _patchDKOCheckProductHaveBuy.OnInit += OnInitProductHaveBuy;
+         _patchDKOCheckProductHaveBuy.OnInit += OnInitPatchProductHaveBuy;
       } 
       
       if (_logicBuyProductComlited.IsInit == false)
@@ -118,9 +123,9 @@ public class SinglProduct : MonoBehaviour
       OnInitGeneral();
    }
 
-   private void OnInitProductHaveBuy()
+   private void OnInitPatchProductHaveBuy()
    {
-      _patchDKOCheckProductHaveBuy.OnInit -= OnInitProductHaveBuy;
+      _patchDKOCheckProductHaveBuy.OnInit -= OnInitPatchProductHaveBuy;
       OnInitGeneral();
    }
    
@@ -167,24 +172,16 @@ public class SinglProduct : MonoBehaviour
          
          if (_productBuy.IsInit == false)
          {
-#if UNITY_EDITOR
-            if (_isDebug == true)
-            {
-               Debug.Log(gameObject.name + " SP 11");
-            }
-#endif
             _productBuy.OnInit += OnInitProductBuy;
          }
-         else
+         
+         if (_checkProductHaveBuy.IsInit == false)
          {
-#if UNITY_EDITOR
-            if (_isDebug == true)
-            {
-               Debug.Log(gameObject.name + " SP 12");
-            }
-#endif
-            Init();
+            _checkProductHaveBuy.OnInit += OnInitProductHaveBuy;
          }
+
+         
+         CheckInit2();
       }
    }
 
@@ -198,8 +195,7 @@ public class SinglProduct : MonoBehaviour
       if (_init == false)
       {
          //тут отписки 
-            
-            _checkProductHaveBuyData.OnGetDataCompleted -= OnOnInitCheckProductHaveBuyV2;
+         _checkProductHaveBuyData.OnGetDataCompleted -= OnOnInitCheckProductHaveBuyV2;
             
          _checkProductHaveBuy.OnUpdateStatusBlock -= CheckProductHaveBuyOnComplitedInit;
          _logicBuyProductComlited.OnCompleted -= OnInitComplitedLogicBuyProduct;
@@ -246,11 +242,23 @@ public class SinglProduct : MonoBehaviour
 
    private void OnInitProductBuy()
    {
-      //Debug.Log("SSSS P12");
       _productBuy.OnInit -= OnInitProductBuy;
-      Init();
+      CheckInit2();
    }
 
+   private void OnInitProductHaveBuy()
+   {
+      _checkProductHaveBuy.OnInit -= OnInitProductHaveBuy;
+      CheckInit2();
+   }
+
+   private void CheckInit2()
+   {
+      if (_productBuy.IsInit == true && _checkProductHaveBuy.IsInit == true) 
+      {
+         Init();
+      }
+   }
 
    private void Init()
    {
@@ -260,11 +268,22 @@ public class SinglProduct : MonoBehaviour
          Debug.Log(gameObject.name + " SP 20");
       }
 #endif
-      
-      //Debug.Log("SSSS P14");
-      _patchDataProduct.OnUpdateCurrentValue += OnUpdateCurrentValue;
-      _patchDataProduct.OnUpdateStorageDataData += OnUpdateDataPatchProduct;
-      InitLogicProduct();
+
+      if (_startInit == false)
+      {
+         _startInit = true;
+         
+#if UNITY_EDITOR
+         if (_isDebug == true)
+         {
+            Debug.Log(gameObject.name + " SP 21");
+         }
+#endif
+         
+         _patchDataProduct.OnUpdateCurrentValue += OnUpdateCurrentValue;
+         _patchDataProduct.OnUpdateStorageDataData += OnUpdateDataPatchProduct;
+         InitLogicProduct();
+      }
    }
    
    private void InitLogicProduct()

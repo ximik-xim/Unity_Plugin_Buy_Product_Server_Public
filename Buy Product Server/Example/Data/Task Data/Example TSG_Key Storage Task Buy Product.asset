@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e621a3a3b3c12ce4484e3cf7f302ed7c, type: 3}
+  m_Name: Example TSG_Key Storage Task Buy Product
+  m_EditorClassIdentifier: 
+  _nameSO: Example TSG_Key Storage Task Buy Product
+  _setName: 1
+  _saveBackupChangeData: 1
+  _list:
+  - _identifierData: {fileID: 11400000, guid: 347f8f18b9e31304b93eaf38381e57d1, type: 2}
+    _dataKey:
+      _key: "\u0425\u0440\u0430\u043D\u0438\u043B\u0435\u0449\u0435 Task \u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u043E\u043A
+        \u0434\u043B\u044F \u043E\u0434\u043D. \u043F\u0440\u043E\u0434\u0443\u043A\u0442(\u041F\u0440\u0438\u043C\u0435\u0440)"
+  - _identifierData: {fileID: 11400000, guid: bcb25d43f9944994db7539a84eada255, type: 2}
+    _dataKey:
+      _key: "\u0425\u0440\u0430\u043D\u0438\u043B\u0435\u0449\u0435 Task \u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u043E\u043A
+        \u0434\u043B\u044F \u043C\u043D\u043E\u0433\u043E\u0440\u0430\u0437. \u043F\u0440\u043E\u0434\u0443\u043A\u0442(\u041F\u0440\u0438\u043C\u0435\u0440)"
+  - _identifierData: {fileID: 11400000, guid: 311bf4d8cd2bd9d48a27143ff754e9eb, type: 2}
+    _dataKey:
+      _key: "\u0425\u0440\u0430\u043D\u0438\u043B\u0435\u0449\u0435 Task \u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u043E\u043A
+        \u0437\u0430\u043F\u0440\u043E\u0441\u043E\u0432 \u043D\u0430 \u043F\u043E\u043A\u0443\u043F\u043A\u0443"
+  - _identifierData: {fileID: 11400000, guid: 7cfe445667d626a4ab5b2f1d31ba7398, type: 2}
+    _dataKey:
+      _key: "\u0425\u0440\u0430\u043D\u0438\u043B\u0435\u0449\u0435 Task \u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u043E\u043A
+        \u0437\u0430\u043F\u0440\u043E\u0441\u043E\u0432 \u043D\u0430 \u043F\u0440\u043E\u0432\u0435\u0440\u043A\u0443
+        \u043A\u0443\u043F\u043B\u0435\u043D \u043B\u0438 \u0442\u043E\u0432\u0430\u0440"
+  - _identifierData: {fileID: 11400000, guid: 303f5a94f6f26d744972a51fb88b830d, type: 2}
+    _dataKey:
+      _key: "\u0425\u0440\u0430\u043D\u0438\u043B\u0435\u0449\u0435 Task \u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u043E\u043A
+        \u0437\u0430\u043F\u0440\u043E\u0441\u043E\u0432 \u043D\u0430 \u043F\u043E\u043B\u0443\u0447\u0435\u043D\u0438\u0435
+        \u0442\u043E\u043A\u0435\u043D\u043E\u0432 \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430"
+  - _identifierData: {fileID: 11400000, guid: 432990c89f44afa4db0610baeef31bf1, type: 2}
+    _dataKey:
+      _key: "\u0425\u0440\u0430\u043D\u0438\u043B\u0435\u0449\u0435 Task \u0431\u043B\u043E\u043A\u0438\u0440\u043E\u0432\u043E\u043A
+        \u0437\u0430\u043F\u0440\u043E\u0441\u043E\u0432 \u043D\u0430 \u0443\u0434\u0430\u043B\u0435\u043D\u0438\u0435
+        \u0442\u043E\u043A\u0435\u043D\u043E\u0432 \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430"
+  _fatalError:
+    Enable: 0
+    TextError: 
+    MessageType: 3
+  _error:
+    Enable: 0
+    TextError: 
+    MessageType: 2

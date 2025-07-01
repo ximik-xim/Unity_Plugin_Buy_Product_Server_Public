@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9740cfd502222fc49892fd9d1ddf4325, type: 3}
+  m_Name: Example DKO Product Money Data
+  m_EditorClassIdentifier: 
+  _nameSO: Example DKO Product Money Data
+  _setName: 1
+  _saveBackupChangeData: 1
+  _list:
+  - _identifierData: {fileID: 11400000, guid: 13c408cf1950ebd4dbff5240c2c113c2, type: 2}
+    _dataKey:
+      key: "\u0414\u0430\u043D\u043D\u044B\u0435 \u043E\u0431 \u043A\u043E\u043B-\u0432\u0435
+        \u043C\u043E\u043D\u0435\u0442"
+  _fatalError:
+    Enable: 0
+    TextError: 
+    MessageType: 3
+  _error:
+    Enable: 0
+    TextError: 
+    MessageType: 2

@@ -2,6 +2,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Нужен если есть покупки за монеты внутри самой игры
+/// (а не для случаем покупки через сервер магазина)
+/// (сделал универсальным и для многраз. и для однораз. покупок.
+/// (По этому этому и сохраняю все ключи покупок(для многораз. покупок эти ключи не нужны)
+/// (И на каждую покупку создаю токен (одноразовым покупкам не нужен этот токен))
+/// </summary>
 public class BuyProductDefault : AbsBuyProduct
 {
     private bool _init = false;
@@ -19,7 +26,10 @@ public class BuyProductDefault : AbsBuyProduct
 
     [SerializeField] 
     private StorageMoney _storageMoney;
-
+    
+    [SerializeField] 
+    private ExampleStorageTokens _tokenData;
+    
 #if UNITY_EDITOR
 
     [SerializeField]
@@ -62,6 +72,14 @@ public class BuyProductDefault : AbsBuyProduct
             _storageMoney.OnInit += OnInitStorageMoney;
         }
         
+        
+        if (_tokenData.IsInit == false)
+        {
+            _tokenData.OnInit += OnInitTokenData;
+            return;
+        }
+        
+        
         CheckInit();
     }
 
@@ -101,6 +119,19 @@ public class BuyProductDefault : AbsBuyProduct
         CheckInit();
     }
     
+    private void OnInitTokenData()
+    {
+#if UNITY_EDITOR
+        if (_isDebug == true)
+        {
+            Debug.Log(gameObject.name + " BPD 70");
+        }
+#endif
+        
+        _tokenData.OnInit += OnInitTokenData;
+        CheckInit();
+    }
+    
     private void CheckInit()
     {
 #if UNITY_EDITOR
@@ -109,7 +140,7 @@ public class BuyProductDefault : AbsBuyProduct
             Debug.Log(gameObject.name + " BPD 90");
         }
 #endif
-        if (_getPriceProductId.IsInit == true && _storageSaveData.IsInit == true && _storageMoney.IsInit == true) 
+        if (_getPriceProductId.IsInit == true && _storageSaveData.IsInit == true && _storageMoney.IsInit == true && _tokenData.IsInit == true)  
         {
 #if UNITY_EDITOR
             if (_isDebug == true)
@@ -147,9 +178,14 @@ public class BuyProductDefault : AbsBuyProduct
             }
             
             _storageMoney.RemoveCount(price);
+
+
+            //Создаем токен на кажд покупку(да да нужен только многораз. покупкам)
+            _tokenData.AddToken(keyProduct);
             
             string jsDataSet = JsonUtility.ToJson(keyProductId);
             
+            //Сохраняем данные об ключе купленного продукта(да да нужен только однораз. покупкам)
             _storageSaveData.SetData(_keySaveData.GetKey(),jsDataSet);
             _storageSaveData.SaveData(new TaskInfo("Save Buy"));
             

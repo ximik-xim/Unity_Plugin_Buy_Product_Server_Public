@@ -35,9 +35,26 @@ public class UIStorageMoney : MonoBehaviour
             var DKOData = (DKODataInfoT<StorageMoney>)_patchStorageMoney.GetDKO();
             _storageMoney = DKOData.Data;
 
-            _storageMoney.OnUpdateCount += OnUpdateValue;
-            OnUpdateValue();
+            if (_storageMoney.IsInit == false)
+            {
+                _storageMoney.OnInit += OnInitStorageMoney;
+                return;
+            }
+
+            InitStorageMoney();
         }
+    }
+    
+    private void OnInitStorageMoney()
+    {
+        _storageMoney.OnInit -= OnInitStorageMoney;
+        InitStorageMoney();
+    }
+    
+    private void InitStorageMoney()
+    {
+        _storageMoney.OnUpdateCount += OnUpdateValue;
+        OnUpdateValue();
     }
 
     private void OnUpdateValue()

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class AbsSaveDataTokenReusableProduct : MonoBehaviour
 {
-    public abstract bool IsInit();
+    public abstract bool IsInit { get; }
     public abstract event Action OnInit;
 
     public abstract event Action OnUpdateData;

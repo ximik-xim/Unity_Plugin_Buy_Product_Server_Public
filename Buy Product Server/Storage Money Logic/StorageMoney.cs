@@ -55,7 +55,7 @@ public class StorageMoney : MonoBehaviour
         }
         else
         {
-            _countMoney = 0;
+            _countMoney = _keySaveData.DefaulValue;
         }
     }
 

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e725c443b55963e41972f4c7e921f070, type: 3}
+  m_Name: Example Storage Price Product Id SO Buy Product
+  m_EditorClassIdentifier: 
+  _listData:
+  - Key:
+      _dataSO: {fileID: 11400000, guid: 9968d660d3c73c94ea47f34885094f0e, type: 2}
+      _selectIndif: {fileID: 11400000, guid: 1a7fc4937234c044daf8aa0e1db66c7f, type: 2}
+      _error:
+        Enable: 0
+        TextError: 
+        MessageType: 0
+    Data: 100
+  - Key:
+      _dataSO: {fileID: 11400000, guid: 9968d660d3c73c94ea47f34885094f0e, type: 2}
+      _selectIndif: {fileID: 11400000, guid: b05954ee270fb544996292bdf02f8509, type: 2}
+      _error:
+        Enable: 0
+        TextError: 
+        MessageType: 0
+    Data: 200

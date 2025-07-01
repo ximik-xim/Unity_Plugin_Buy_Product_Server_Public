@@ -69,37 +69,49 @@ public class ReusableProduct : MonoBehaviour
        /// Сработает в случае error или в случае если обработка всех покупок завершина
        /// </summary>
        public event Action OnComlited;
+       
+       /// <summary>
+       /// Нужна что бы не запустить еще раз момент иниц.(дело в том, что до момента пока сраб. осн. Init, может пройти слишком много времяни, и кто то может еще раз вызывать иниц.)
+       /// </summary>
+       private bool _startInit = false;
+       
+#if UNITY_EDITOR
+
+       [SerializeField]
+       private bool _isDebug;
+#endif
+   
        private void Awake()
        {       
-          AddBlock();
+#if UNITY_EDITOR
+          if (_isDebug == true)
+          {
+             Debug.Log(gameObject.name + " SP 10");
+          }
+#endif
           
           if (_patchDKOBuyProduct.Init == false)
           {
-             //Debug.Log("YYYY P2");
              _patchDKOBuyProduct.OnInit += OnInitBuyProduct;
           } 
           
           if (_patchDKOGetTokensProductId.Init == false)
           {
-             //Debug.Log("YYYY P3");
              _patchDKOGetTokensProductId.OnInit += OnInitGetTokensProductId;
           } 
           
           if (_patchDKORemoveProductFromList.Init == false)
           {
-             //Debug.Log("YYYY P4");
-             _patchDKORemoveProductFromList.OnInit += OnInitRemoveProductFromList;
+             _patchDKORemoveProductFromList.OnInit += OnInitPatchRemoveProductFromList;
           } 
                 
           if (_logicBuyProductComlited.IsInit == false)
           {
-             //Debug.Log("YYYY P5");
              _logicBuyProductComlited.OnInit += OnInitLogicBuy;
           } 
           
-          if (_patchDataProduct.IsInit() == false)
+          if (_patchDataProduct.IsInit == false)
           {
-             //Debug.Log("YYYY P6");
              _patchDataProduct.OnInit += OnInitPatchDataProduct;
           }
           
@@ -113,35 +125,30 @@ public class ReusableProduct : MonoBehaviour
        
        private void OnInitBuyProduct()
        {
-          //Debug.Log("YYYY P7");
           _patchDKOBuyProduct.OnInit -= OnInitBuyProduct;
           OnInitGeneral();
        }
     
        private void OnInitGetTokensProductId()
        {          
-          //Debug.Log("YYYY P8");
           _patchDKOGetTokensProductId.OnInit -= OnInitGetTokensProductId;
           OnInitGeneral();
        }
        
-       private void OnInitRemoveProductFromList()
+       private void OnInitPatchRemoveProductFromList()
        {
-          //Debug.Log("YYYY P9");
-          _patchDKORemoveProductFromList.OnInit -= OnInitRemoveProductFromList;
+          _patchDKORemoveProductFromList.OnInit -= OnInitPatchRemoveProductFromList;
           OnInitGeneral();
        }
        
        private void OnInitLogicBuy()
        {
-          //Debug.Log("YYYY P10");
           _logicBuyProductComlited.OnInit -= OnInitLogicBuy;
           OnInitGeneral();
        }
        
        private void OnInitPatchDataProduct()
        {
-          //Debug.Log("YYYY P11");
           _patchDataProduct.OnInit -= OnInitPatchDataProduct;
           OnInitGeneral();
        }
@@ -154,9 +161,16 @@ public class ReusableProduct : MonoBehaviour
        
        private void OnInitGeneral()
        {
-          if (_patchDKOBuyProduct.Init == true && _patchDKOGetTokensProductId.Init == true && _patchDKORemoveProductFromList.Init == true && _logicBuyProductComlited.IsInit == true && _patchDataProduct.IsInit() == true && _patchStorageKey.Init == true) 
+          if (_patchDKOBuyProduct.Init == true && _patchDKOGetTokensProductId.Init == true && _patchDKORemoveProductFromList.Init == true && _logicBuyProductComlited.IsInit == true && _patchDataProduct.IsInit == true && _patchStorageKey.Init == true) 
           {         
-             //Debug.Log("YYYY P20");
+             
+#if UNITY_EDITOR
+             if (_isDebug == true)
+             {
+                Debug.Log(gameObject.name + " SP 100");
+             }
+#endif
+             
              var dkoProductBuy = (DKODataInfoT<BuyProductWrapper>)_patchDKOBuyProduct.GetDKO();
              _productBuy = dkoProductBuy.Data;
              
@@ -170,31 +184,76 @@ public class ReusableProduct : MonoBehaviour
              dkoStorageKeyTaskDataMono.Data.AddTaskData(_keyStorageTaskBlock.GetData(), new TSG_StorageTaskDefaultData());
              _taskBlockStorage = dkoStorageKeyTaskDataMono.Data.GetTaskData(_keyStorageTaskBlock.GetData());
              
+             AddBlock();
+             
              if (_productBuy.IsInit == false)
              {    
-                //Debug.Log("YYYY P21");
                 _productBuy.OnInit += OnInitProductBuy;
              }
-             else
+         
+             if (_getTokensProductIdLogic.IsInit == false)
              {
-                //Debug.Log("YYYY P22");
-                Init();
-             }         
+                _getTokensProductIdLogic.OnInit += OnInitGetTokensProductIdLogic;
+             }
+
+             if (_removeProductFromList.IsInit == false)
+             {
+                _getTokensProductIdLogic.OnInit += OnInitRemoveProductFromList;
+             }
+             
+             CheckInit2();
           }
        }
-       
+
        private void OnInitProductBuy()
        {
-          //Debug.Log("YYYY P23");
           _productBuy.OnInit -= OnInitProductBuy;
-          Init();
+          CheckInit2();
+       }
+       
+       private void OnInitGetTokensProductIdLogic()
+       {
+          _getTokensProductIdLogic.OnInit += OnInitGetTokensProductIdLogic;
+          CheckInit2();
+       }
+       
+       private void OnInitRemoveProductFromList()
+       {
+          _getTokensProductIdLogic.OnInit -= OnInitRemoveProductFromList;
+          CheckInit2();
+       }
+
+       private void CheckInit2()
+       {
+          if (_productBuy.IsInit == true && _getTokensProductIdLogic.IsInit == true && _removeProductFromList.IsInit == true)  
+          {
+#if UNITY_EDITOR
+             if (_isDebug == true)
+             {
+                Debug.Log(gameObject.name + " SP 300");
+             }
+#endif
+             
+             Init();
+          }
        }
        
        private void Init()
        {
-          //Debug.Log("YYYY P24");
-          _patchDataProduct.OnUpdateData += OnUpdateDataStorage;
-          GetTokensProductInit();
+          if (_startInit == false)
+          {
+             _startInit = true;
+             
+#if UNITY_EDITOR
+             if (_isDebug == true)
+             {
+                Debug.Log(gameObject.name + " SP 310");
+             }
+#endif
+             
+             _patchDataProduct.OnUpdateData += OnUpdateDataStorage;
+             GetTokensProductInit();
+          }
        }
 
        private void GetTokensProductInit()
@@ -319,7 +378,14 @@ public class ReusableProduct : MonoBehaviour
              
              _patchDataProduct.AddDataToken(_productId.GetData(), _currentToken.ProductToken);
 
-             //Debug.Log("YYYY P44");
+             
+#if UNITY_EDITOR
+             if (_isDebug == true)
+             {
+                Debug.Log(gameObject.name + " SP 500");
+             }
+#endif
+             
              switch (_typeSaveLogicComplited)
              {
                 case TypeSaveProduct.NoSave:
@@ -536,8 +602,23 @@ public class ReusableProduct : MonoBehaviour
     
        public void BuyProduct()
        {
+#if UNITY_EDITOR
+          if (_isDebug == true)
+          {
+             Debug.Log(gameObject.name + " SP 2000");
+          }
+#endif
+          
           if (IsStart() == true)
           {
+             
+#if UNITY_EDITOR
+             if (_isDebug == true)
+             {
+                Debug.Log(gameObject.name + " SP 2010 Start Buy");
+             }
+#endif
+             
              AddBlock();
              _isStartLogic = true;
              OnStart?.Invoke();
@@ -607,15 +688,36 @@ public class ReusableProduct : MonoBehaviour
 
        private void CallbackGetTokensProductCheckV2()
        {          
+          
+#if UNITY_EDITOR
+          if (_isDebug == true)
+          {
+             Debug.Log(gameObject.name + " SP 2500");
+          }
+#endif
              if (_getTokensProductIdLogicData.StatusServer == StatusCallBackServer.Ok)
              {
                 if (_getTokensProductIdLogicData.GetData.ListProductToken.Count == 0)
                 {
+#if UNITY_EDITOR
+                   if (_isDebug == true)
+                   {
+                      Debug.Log(gameObject.name + " SP 2520");
+                   }
+#endif
+                   
                    //начинаю покупку
                    BuyProductLogic();
                 }
                 else
                 {
+#if UNITY_EDITOR
+                   if (_isDebug == true)
+                   {
+                      Debug.Log(gameObject.name + " SP 2540");
+                   }
+#endif
+                   
                    _lastData = _getTokensProductIdLogicData.GetData;
                    //начинаю проверку и обработку
                    CheckTokenProductInStorage();
@@ -623,6 +725,13 @@ public class ReusableProduct : MonoBehaviour
              }
              else
              {
+#if UNITY_EDITOR
+                if (_isDebug == true)
+                {
+                   Debug.Log(gameObject.name + " SP 2560");
+                }
+#endif
+                
                 //Выведу ошибку при покупке
                 Error();
              }
@@ -643,6 +752,13 @@ public class ReusableProduct : MonoBehaviour
              }
              return;
           }
+          
+#if UNITY_EDITOR
+          if (_isDebug == true)
+          {
+             Debug.Log(gameObject.name + " SP 2600");
+          }
+#endif
 
           Error();
        }
@@ -661,20 +777,46 @@ public class ReusableProduct : MonoBehaviour
        private void CallbackBuyProductV2()
        {
       
+#if UNITY_EDITOR
+          if (_isDebug == true)
+          {
+             Debug.Log(gameObject.name + " SP 2700");
+          }
+#endif
              if (_productBuyData.StatusServer == StatusCallBackServer.Ok)
              {
                 if (_productBuyData.GetData.ProductHaveBuy == true)
                 {
+#if UNITY_EDITOR
+                   if (_isDebug == true)
+                   {
+                      Debug.Log(gameObject.name + " SP 2720");
+                   }
+#endif
                    GetTokensProduct();
                 }
                 else
                 {
+                   
+#if UNITY_EDITOR
+                   if (_isDebug == true)
+                   {
+                      Debug.Log(gameObject.name + " SP 2740");
+                   }
+#endif
                    //Выведу ошибку при покупке
                    Error();
                 }
              }
              else
              {
+                
+#if UNITY_EDITOR
+                if (_isDebug == true)
+                {
+                   Debug.Log(gameObject.name + " SP 2760");
+                }
+#endif
                 //Выведу ошибку при покупке
                 Error();
              }
@@ -738,22 +880,51 @@ public class ReusableProduct : MonoBehaviour
        
        private void CallbackGetTokensProductV2()
        {
+          
+#if UNITY_EDITOR
+          if (_isDebug == true)
+          {
+             Debug.Log(gameObject.name + " SP 2800");
+          }
+#endif
         
              if (_getTokensProductIdLogicData.StatusServer == StatusCallBackServer.Ok)
              {
                 if (_getTokensProductIdLogicData.GetData.ListProductToken.Count == 0)
                 {
+                   
+#if UNITY_EDITOR
+                   if (_isDebug == true)
+                   {
+                      Debug.Log(gameObject.name + " SP 2820");
+                   }
+#endif
                    //Выведу ошибку при покупке
                    Error();
                 }
                 else
                 {
+                   
+#if UNITY_EDITOR
+                   if (_isDebug == true)
+                   {
+                      Debug.Log(gameObject.name + " SP 2840");
+                   }
+#endif
+                   
                    _lastData = _getTokensProductIdLogicData.GetData;
                    CheckTokenProductInStorage();
                 }
              }
              else
              {
+                
+#if UNITY_EDITOR
+                if (_isDebug == true)
+                {
+                   Debug.Log(gameObject.name + " SP 2860");
+                }
+#endif
                 //Выведу ошибку при покупке
                 Error();
              }
@@ -780,6 +951,13 @@ public class ReusableProduct : MonoBehaviour
           }
           else
           {
+#if UNITY_EDITOR
+             if (_isDebug == true)
+             {
+                Debug.Log(gameObject.name + " SP 5000 Complited");
+             }
+#endif
+             
              //получаеться, тут все конец и можно заканчивать
 
              OnComlited?.Invoke();
@@ -843,6 +1021,13 @@ public class ReusableProduct : MonoBehaviour
        
        private void RemoveTokenProductFromList()
        {
+#if UNITY_EDITOR
+          if (_isDebug == true)
+          {
+             Debug.Log(gameObject.name + " SP 3000");
+          }
+#endif
+          
           if (_removeProductFromList.IsProductStartWating(_productId.GetData()) == false)
           {
              if (_removeProductFromListData != null)
@@ -863,6 +1048,13 @@ public class ReusableProduct : MonoBehaviour
              return;
           }
           
+#if UNITY_EDITOR
+          if (_isDebug == true)
+          {
+             Debug.Log(gameObject.name + " SP 3100");
+          }
+#endif
+          
           Error();
        }
 
@@ -874,7 +1066,12 @@ public class ReusableProduct : MonoBehaviour
 
        private void CallbackRemoveTokenProductFromListV2()
        {
-        
+#if UNITY_EDITOR
+          if (_isDebug == true)
+          {
+             Debug.Log(gameObject.name + " SP 3200");
+          }
+#endif
              if (_removeProductFromListData.StatusServer == StatusCallBackServer.Ok)
              {
                 //Даже если не найдет токен, логика та же, сначало удаляю токен из хран, затем из списка и вызываю сохранение 
@@ -959,6 +1156,13 @@ public class ReusableProduct : MonoBehaviour
 
        private void InitInvoke()
        {
+#if UNITY_EDITOR
+          if (_isDebug == true)
+          {
+             Debug.Log(gameObject.name + " SP 400 INIT");
+          }
+#endif
+          
           RemoveBlock();
           
           _init = true;
