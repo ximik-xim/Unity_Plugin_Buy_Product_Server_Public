@@ -2,6 +2,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Проверяет куплен ли товар через хранилеще SD
+///
+/// Если в хранилеще есть сохраненный список с ключами товаров.
+/// И в этом списке есть указ ключ товара, то товар был куплен
+/// </summary>
 public class CheckIsBuyProductDefault : AbsCheckIsBuyProduct
 {
     public override bool IsInit => _storageSaveData.IsInit;
@@ -20,7 +26,7 @@ public class CheckIsBuyProductDefault : AbsCheckIsBuyProduct
     }
 
     [SerializeField] 
-    private SD_StorageDataStringPrefs _storageSaveData;
+    private SD_AbsStringStorage _storageSaveData;
 
     [SerializeField] 
     private SD_GetClassKeyDataGetDKOString _keySaveData;

@@ -12,3 +12,5 @@ Unity_Plugin-TList_Public - https://github.com/ximik-xim/Unity_Plugin-General_Pu
 Unity_Plugin_List_Task_Public - https://github.com/ximik-xim/Unity_Plugin_List_Task_Public
 
 Unity_Plugin_UI_Game_Panel_Info_Public - https://github.com/ximik-xim/Unity_Plugin_UI_Game_Panel_Info_Public
+
+Unity_Plugin_Storage_UI_Image_Public - https://github.com/ximik-xim/Unity_Plugin_Storage_UI_Image_Public

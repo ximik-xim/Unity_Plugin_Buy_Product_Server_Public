@@ -4,6 +4,12 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
+/// <summary>
+/// Нужна что бы
+/// 1) можно было реализовать способ проверки куплен ли товар разными способами(через абстракцию AbsCheckIsBuyProduct)
+/// 2) Является оберткой для упрощения работы с абстракцией AbsCheckIsBuyProduct
+/// (При запросе, по ключу продукта хранит словарь в котором, по id запроса хранит callback ответ)
+/// </summary>
 public class CheckIsBuyProductWrapper : MonoBehaviour
 {
     private bool _init = false;

@@ -96,7 +96,7 @@ public class SaveDataTokenReusableProductSDStorageDataStringPrefs : AbsSaveDataT
         
         if (_productTokensData == null)
         {
-            Debug.LogError("Пришел Null");
+            Debug.Log("ВНИМАНИЕ в хранилище с сохран. данными не были найдены данные об списке необработанных токенов для многораз. покупок");
             _productTokensData = new StorageKeyListTokensBuyProduct();
         }
         

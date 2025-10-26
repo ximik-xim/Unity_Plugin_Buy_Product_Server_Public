@@ -87,26 +87,32 @@ public class BuyProductWrapper : MonoBehaviour
 
     private void OnInitLogicBuy()
     {
-#if UNITY_EDITOR
-        if (_isDebug == true)
+        if (_logicBuy.IsInit == true)
         {
-            Debug.Log(gameObject.name + " BPW 30");
-        }
+#if UNITY_EDITOR
+            if (_isDebug == true)
+            {
+                Debug.Log(gameObject.name + " BPW 30");
+            }
 #endif
-        _logicBuy.OnInit -= OnInitLogicBuy;
-        CheckInit();
+            _logicBuy.OnInit -= OnInitLogicBuy;
+            CheckInit();
+        }
     }
     
     private void OnInitPatchStorageKey()
     {
-#if UNITY_EDITOR
-        if (_isDebug == true)
+        if (_patchStorageKey.Init == true)
         {
-            Debug.Log(gameObject.name + " BPW 40");
-        }
+#if UNITY_EDITOR
+            if (_isDebug == true)
+            {
+                Debug.Log(gameObject.name + " BPW 40");
+            }
 #endif
-        _patchStorageKey.OnInit -= OnInitPatchStorageKey;
-        CheckInit();
+            _patchStorageKey.OnInit -= OnInitPatchStorageKey;
+            CheckInit();
+        }
     }
 
     private void CheckInit()

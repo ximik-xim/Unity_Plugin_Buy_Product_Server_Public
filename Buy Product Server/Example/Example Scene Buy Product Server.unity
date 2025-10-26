@@ -740,6 +740,7 @@ MonoBehaviour:
         TextError: 
         MessageType: 0
     Data: {fileID: 497700763}
+  _visibleData: []
 --- !u!114 &292016234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3803,7 +3804,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 60, y: 520}
+  m_AnchoredPosition: {x: 60, y: 539}
   m_SizeDelta: {x: -430.39996, y: -1198.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &1604175165646570783
@@ -3864,6 +3865,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1604175165646570783}
     m_Modifications:
+    - target: {fileID: 205529271076792055, guid: 31c4fbcafeb7d6e40a1fafce3aaebee8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -92387417, guid: 4fe446d902b553d4fa01e3167eb97657, type: 3}
     - target: {fileID: 2228440509232872747, guid: 31c4fbcafeb7d6e40a1fafce3aaebee8, type: 3}
       propertyPath: m_Name
       value: Coin Buffer Data
@@ -3934,7 +3939,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7207048214528885181, guid: 31c4fbcafeb7d6e40a1fafce3aaebee8, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 523.9
+      value: 547
       objectReference: {fileID: 0}
     - target: {fileID: 7207048214528885181, guid: 31c4fbcafeb7d6e40a1fafce3aaebee8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4010,7 +4015,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 2132949233, guid: aeacd499c3943784bbbc2028c03df166, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4299,14 +4304,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3160377, g: 0.39574143, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.16342616, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: -4497578210200758736, guid: 578fc686cfcf7b848b77f202915a9e02, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -4433,14 +4438,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4475,17 +4480,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 230548984747765839}
-  m_LocalRotation: {x: 0, y: 0, z: 0.38268343, w: 0.92387956}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1604175165646570783}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 293.76877, y: 573}
-  m_SizeDelta: {x: -615.1375, y: -1065.9}
+  m_AnchoredPosition: {x: 284, y: 544}
+  m_SizeDelta: {x: -641.3375, y: -1065.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &8353877476184874420
 RectTransform:
