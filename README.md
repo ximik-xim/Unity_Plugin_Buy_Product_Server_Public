@@ -22,3 +22,7 @@ Unity_Plugin_List_Task_Public - https://github.com/ximik-xim/Unity_Plugin_List_T
 Unity_Plugin_UI_Game_Panel_Info_Public - https://github.com/ximik-xim/Unity_Plugin_UI_Game_Panel_Info_Public
 
 Unity_Plugin_Storage_UI_Image_Public - https://github.com/ximik-xim/Unity_Plugin_Storage_UI_Image_Public
+
+---------------------------------------------------------------------------------------------------------
+
+Ну и так же нужно восстановить скрипты TList из бэкапов. Для этого нажимаем на папку Buy Product Server кнопкой ПКМ и заходим в пункт TList -> К папке -> Стереть и восстановить все данные
